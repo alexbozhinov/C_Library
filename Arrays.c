@@ -17,4 +17,7 @@ static void setMethods(Arrays *arrays)
     arrays->bubbleSort = bubbleSort;
     arrays->selectionSort = selectionSort;
     arrays->insertionSort = insertionSort;
+    arrays->linearSearch = linearSearch;
+    arrays->binarySearch = binarySearch;
+    arrays->ternarySearch = ternarySearch;
 }
