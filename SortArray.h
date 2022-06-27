@@ -6,7 +6,7 @@
 void bubbleSort(int *array, const int length, enum SortingDirection direction);
 void selectionSort(int *array, const int length, enum SortingDirection direction);
 void insertionSort(int *array, const int length, enum SortingDirection direction);
-void quickSort(int array[]);
-void mergeSort(int array[]);
+void mergeSort(int array[], const int left, const int right);
+void quickSort(int array[], const int left, const int right);
 
 #endif

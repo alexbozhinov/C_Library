@@ -8,6 +8,8 @@ static void selectionSortAscending(int array[], const int length);
 static void selectionSortDescending(int array[], const int length);
 static void insertionSortAscending(int array[], const int length);
 static void insertionSortDescending(int array[], const int length);
+static void merge(int array[], const int left, const int middle, const int right);
+static int partition(int array[], const int low, const int high);
 
 static void swap(int *left, int *right)
 {
@@ -162,4 +164,106 @@ static void insertionSortDescending(int array[], const int length)
             j--;
         }
     }
+}
+
+void mergeSort(int array[], const int left, const int right)
+{
+    if (left < right)
+    {
+
+        int middle = left + (right - left) / 2;
+
+        // Sort first and second halves
+        mergeSort(array, left, middle);
+        mergeSort(array, middle + 1, right);
+
+        merge(array, left, middle, right);
+    }
+}
+
+static void merge(int array[], const int left, const int middle, const int right)
+{
+    int i = 0, j = 0, k = 0;
+    const int length1 = middle - left + 1;
+    const int length2 = right - middle;
+
+    int leftArray[length1], rightArray[length2];
+
+    for (i = 0; i < length1; i++)
+    {
+        leftArray[i] = array[left + i];
+    }
+    for (j = 0; j < length2; j++)
+    {
+        rightArray[j] = array[middle + 1 + j];
+    }
+
+    /* Merge the temp arrays back into arr[l..r]*/
+    i = 0;    // Initial index of first subarray
+    j = 0;    // Initial index of second subarray
+    k = left; // Initial index of merged subarray
+
+    while (i < length1 && j < length2)
+    {
+        if (leftArray[i] <= rightArray[j])
+        {
+            array[k] = leftArray[i];
+            i++;
+        }
+        else
+        {
+            array[k] = rightArray[j];
+            j++;
+        }
+        k++;
+    }
+
+    /* Copy the remaining elements of L[], if there
+    are any */
+    while (i < length1)
+    {
+        array[k] = leftArray[i];
+        i++;
+        k++;
+    }
+
+    /* Copy the remaining elements of R[], if there
+    are any */
+    while (j < length2)
+    {
+        array[k] = rightArray[j];
+        j++;
+        k++;
+    }
+}
+
+void quickSort(int array[], const int left, const int right)
+{
+    if (left < right)
+    {
+        int pivot = partition(array, left, right);
+
+        quickSort(array, left, pivot - 1);
+        quickSort(array, pivot + 1, right);
+    }
+}
+
+static int partition(int array[], const int left, const int right)
+{
+    int pivot = array[right];
+
+    int i = (left - 1);
+
+    for (int j = left; j <= right - 1; j++)
+    {
+        if (array[j] <= pivot)
+        {
+            i++;
+            swap(&array[i], &array[j]);
+        }
+    }
+
+    swap(&array[i + 1], &array[right]);
+
+    return (i + 1);
 }
