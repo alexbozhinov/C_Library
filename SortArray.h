@@ -1,0 +1,12 @@
+#ifndef SORT_ARRAY_H_
+#define SORT_ARRAY_H_
+
+#include "Defines.h"
+
+void bubbleSort(int *array, const int length, enum SortingDirection direction);
+void selectionSort(int *array, const int length, enum SortingDirection direction);
+void insertionSort(int *array, const int length, enum SortingDirection direction);
+void quickSort(int array[]);
+void mergeSort(int array[]);
+
+#endif
