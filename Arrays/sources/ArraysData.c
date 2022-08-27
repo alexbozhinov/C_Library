@@ -1,84 +1,158 @@
-#include <stdio.h>
-#include "ArrayData.h"
+//------------------------------------------------------
+// NAME: Aleks Bozhinov
+// PROBLEM: Arrays implementation
+// FILE NAME: ArraysData.c
+// FILE PURPOSE:
+// Implementations of data management functions for the
+// Arrays struct.
+//------------------------------------------------------
 
-void copyOf(const int original[], const int length, int copy[], const int newLength)
+#include <stdio.h>
+#include "../headers/ArraysData.h"
+
+//------------------------------------------------------
+// FUNCTION: arraysCopyOf
+// Function where array's elements are coppied into
+// the copy array.
+// PARAMETERS:
+// originalArray     -> the original array
+// originalArraySize -> the length of the original array
+// copyArray         -> the coppied array
+// copyArraySize     -> the length of the new array after copying
+//------------------------------------------------------
+
+void arraysCopyOf(const int* originalArray, const int originalArraySize, int* copyArray, const int copyArraySize)
 {
-    for (int i = 0; i < newLength; i++)
+    int arrayIdx = 0;
+    // TODO: validate if copyLength is less than the original
+    for (arrayIdx = 0; arrayIdx < copyArraySize; arrayIdx++)
     {
-        copy[i] = 0;
+        copyArray[arrayIdx] = 0;
     }
 
-    for (int i = 0; i < length; i++)
+    for (arrayIdx = 0; arrayIdx < originalArraySize; arrayIdx++)
     {
-        copy[i] = original[i];
+        copyArray[arrayIdx] = originalArray[arrayIdx];
     }
 }
 
-void copyOfRange(const int original[], const int length, int *copy, const int newLength, const int from, const int to)
-{
+//------------------------------------------------------
+// FUNCTION: arraysCopyOfRange
+// Function where a range of array's elements are coppied
+// into the copy array.
+// PARAMETERS:
+// originalArray     -> the original array
+// originalArraySize -> the length of the original array
+// copyArray         -> the copy array
+// copyArraySize     -> the length of the new array after copying
+// indexFrom         -> the index from which the array is coppied
+// indexTo           -> the index to which the array is coppied
+//------------------------------------------------------
 
-    if (from > to)
+void arraysCopyOfRange(const int* originalArray, const int originalArraySize,
+                       int* copyArray, const int copyArraySize,
+                       const int indexFrom, const int indexTo)
+{
+    int arrayIdx = 0;
+    int copyIdx  = 0;
+
+    if (indexFrom > indexTo)
     {
         printf("End index bigger than the starting!\n");
         return;
     }
-    if (from > length - 1 || to > length - 1 || from < 0 || to < 0)
+    if (indexFrom > originalArraySize - 1 || indexTo > originalArraySize - 1 || indexFrom < 0 || indexTo < 0)
     {
         printf("Indexes out of bounds!\n");
         return;
     }
-    if (newLength < (to - from + 1))
+    if (copyArraySize < (indexTo - indexFrom + 1))
     {
         printf("Copy array out of bounds!\n");
         return;
     }
 
-    for (int i = 0; i < newLength; i++)
+    for (arrayIdx = 0; arrayIdx < copyArraySize; arrayIdx++)
     {
-        copy[i] = 0;
+        copyArray[arrayIdx] = 0;
     }
 
-    int cpIdx = 0;
-
-    for (int i = from; i <= to; i++)
+    for (arrayIdx = indexFrom; arrayIdx <= indexTo; arrayIdx++)
     {
-        copy[cpIdx] = original[i];
-        cpIdx++;
+        copyArray[copyIdx] = originalArray[arrayIdx];
+        copyIdx++;
     }
 }
 
-bool equals(const int left[], const int length1, const int right[], const int length2)
-{
-    if (length1 != length2)
-    {
-        return false;
-    }
+//------------------------------------------------------
+// FUNCTION: arraysEquals
+// Function which returns whether two arrays are equal.
+// PARAMETERS:
+// leftArray      -> the left array of the equation
+// leftArraySize  -> the length of the left array
+// rightArray     -> the right array of the equation
+// rightArraySIze -> the length of the right array
+//------------------------------------------------------
 
-    for (int i = 0; i < length1; i++)
+bool arraysEquals(const int* leftArray, const int leftArraySize, const int* rightArray, const int rightArraySize)
+{
+    int arrayIdx = 0;
+    bool equal   = false;
+
+    if(leftArraySize == rightArraySize)
     {
-        if (left[i] != right[i])
+        equal = true;
+
+        for (arrayIdx = 0; arrayIdx < leftArraySize; arrayIdx++)
         {
-            return false;
+            if (leftArray[arrayIdx] != rightArray[arrayIdx])
+            {
+                equal = false;
+                break;
+            }
         }
     }
 
-    return true;
+    return equal;
 }
 
-void fill(int array[], const int length, const int value)
+//------------------------------------------------------
+// FUNCTION: arraysFill
+// Function where an array is filled with a specific value.
+// PARAMETERS:
+// array     -> the original array
+// arraySize -> the length of the original array
+// value     -> the value which fills the array
+//------------------------------------------------------
+
+void arraysFill(int* array, const int arraySize, const int value)
 {
-    for (int i = 0; i < length; i++)
+    int arrayIdx = 0;
+
+    for (arrayIdx = 0; arrayIdx < arraySize; arrayIdx++)
     {
-        array[i] = value;
+        array[arrayIdx] = value;
     }
 }
 
-void fillAt(int array[], const int length, const int value, const int idx)
+//------------------------------------------------------
+// FUNCTION: arraysFillAt
+// Function where a specific element of the array is filled
+// with a specific value.
+// PARAMETERS:
+// array     -> the original array
+// arraySize -> the length of the original array
+// value     -> the value which fills the array
+// indexAt   -> the index on which the element is filled
+//------------------------------------------------------
+
+void arraysFillAt(int* array, const int arraySize, const int value, const int indexAt)
 {
-    if (idx < 0 || idx > length - 1)
+    if (indexAt < 0 || indexAt > arraySize - 1)
     {
         printf("Index out of bounds!\n");
         return;
     }
-    array[idx] = value;
+
+    array[indexAt] = value;
 }

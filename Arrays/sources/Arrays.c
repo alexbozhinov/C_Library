@@ -47,11 +47,11 @@ static void setArraysMethods(Arrays *arrays)
     arrays->linearSearch    = linearSearch;
     arrays->binarySearch    = binarySearch;
     arrays->ternarySearch   = ternarySearch;
-    arrays->copyOf          = copyOf;
-    arrays->copyOfRange     = copyOfRange;
-    arrays->equals          = equals;
-    arrays->fill            = fill;
-    arrays->fillAt          = fillAt;
+    arrays->copyOf          = arraysCopyOf;
+    arrays->copyOfRange     = arraysCopyOfRange;
+    arrays->equals          = arraysEquals;
+    arrays->fill            = arraysFill;
+    arrays->fillAt          = arraysFillAt;
     arrays->max             = max;
     arrays->min             = min;
     arrays->sum             = sum;
