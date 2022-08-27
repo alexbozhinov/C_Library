@@ -38,4 +38,4 @@ typedef struct Arrays
 
 Arrays arraysInit();
 
-#endif
+#endif // ARRAYS_H_

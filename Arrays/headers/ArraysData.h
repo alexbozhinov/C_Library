@@ -1,5 +1,5 @@
-#ifndef ARRAY_DATA_H_
-#define ARRAY_DATA_H_
+#ifndef ARRAYS_DATA_H_
+#define ARRAYS_DATA_H_
 
 #include <stdbool.h>
 
@@ -10,4 +10,4 @@ void fill(int array[], const int length, const int value);
 void fillAt(int array[], const int length, const int value, const int idx);
 
 
-#endif
+#endif // ARRAYS_DATA_H_

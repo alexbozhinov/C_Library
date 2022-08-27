@@ -1,5 +1,5 @@
-#ifndef DATA_STATISTICS_H_
-#define DATA_STATISTICS_H_
+#ifndef ARRAYS_DATA_STATISTICS_H_
+#define ARRAYS_DATA_STATISTICS_H_
 
 int max(const int array[], const int length);
 int min(const int array[], const int length);
@@ -10,4 +10,4 @@ void frequency(const int array[], const int length);
 int distinct(int array[], const int length);
 int countOfDistinct(const int array[], const int length);
 
-#endif
+#endif // ARRAYS_DATA_STATISTICS_H_

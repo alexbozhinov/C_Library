@@ -1,5 +1,5 @@
-#ifndef SORT_ARRAY_H_
-#define SORT_ARRAY_H_
+#ifndef ARRAYS_SORT_H_
+#define ARRAYS_SORT_H_
 
 #include "Defines.h"
 
@@ -9,4 +9,4 @@ void insertionSort(int *array, const int length, enum SortingDirection direction
 void mergeSort(int array[], const int left, const int right);
 void quickSort(int array[], const int left, const int right);
 
-#endif
+#endif // ARRAYS_SORT_H_
