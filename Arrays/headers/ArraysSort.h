@@ -1,7 +1,7 @@
 #ifndef ARRAYS_SORT_H_
 #define ARRAYS_SORT_H_
 
-#include "Defines.h"
+#include "ArraysDefines.h"
 
 void bubbleSort(int *array, const int length, enum SortingDirection direction);
 void selectionSort(int *array, const int length, enum SortingDirection direction);
