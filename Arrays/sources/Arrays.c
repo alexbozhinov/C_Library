@@ -37,7 +37,7 @@ Arrays ArraysConstructor()
 
 static void setArraysMethods(Arrays *arrays)
 {
-    arrays->input           = inputArray;
+    arrays->input           = arraysInputArray;
     arrays->toString        = arraysToString;
     arrays->bubbleSort      = bubbleSort;
     arrays->selectionSort   = selectionSort;

@@ -1,33 +1,61 @@
-#include <stdio.h>
-#include "InputOutput.h"
+//------------------------------------------------------
+// NAME: Aleks Bozhinov
+// PROBLEM: Arrays implementation
+// FILE NAME: ArraysInputOutput.c
+// FILE PURPOSE:
+// The struct Arrays implementations of methods manageing
+// the input and output streams of the array.
+//------------------------------------------------------
 
-void inputArray(int *array, const int length)
+#include <stdio.h>
+#include "../headers/ArraysInputOutput.h"
+
+//------------------------------------------------------
+// FUNCTION: arraysInputArray
+// Function where elements of array are inputed.
+// PARAMETERS:
+// array     -> the array
+// arraySize -> the size of the array
+//------------------------------------------------------
+
+void arraysInputArray(int *array, const int arraySize)
 {
-    printf("Input %d array elements: ", length);
-    for (int i = 0; i < length; i++)
+    int arrayIdx = 0;
+
+    printf("Input %d array elements: ", arraySize);
+
+    for (arrayIdx = 0; arrayIdx < arraySize; arrayIdx++)
     {
-        scanf("%d", &array[i]);
+        scanf("%d", &array[arrayIdx]);
     }
 }
 
-void arraysToString(const int array[], const int length)
+//------------------------------------------------------
+// FUNCTION: arraysToString
+// Function where elements of array are printed.
+// PARAMETERS:
+// array     -> the array
+// arraySize -> the size of the array
+//------------------------------------------------------
+
+void arraysToString(const int *array, const int arraySize)
 {
-    if (length == 0)
+    if(arraySize > 0)
+    {
+        int lastIdx  = arraySize - 1;
+        int arrayIdx = 0;
+
+        printf("[ ");
+
+        for (arrayIdx = 0; arrayIdx < lastIdx; arrayIdx++)
+        {
+            printf("%d, ", array[arrayIdx]);
+        }
+
+        printf("%d ]\n", array[lastIdx]);
+    }
+    else 
     {
         printf("[]\n");
-    }
-    else
-    {
-        int iMax = length - 1;
-        printf("[ ");
-        for (int i = 0; i < length; i++)
-        {
-            if (i == iMax)
-            {
-                printf("%d ]\n", array[i]);
-                return;
-            }
-            printf("%d, ", array[i]);
-        }
     }
 }
