@@ -52,12 +52,12 @@ static void setArraysMethods(Arrays *arrays)
     arrays->equals          = arraysEquals;
     arrays->fill            = arraysFill;
     arrays->fillAt          = arraysFillAt;
-    arrays->max             = max;
-    arrays->min             = min;
-    arrays->sum             = sum;
-    arrays->average         = average;
-    arrays->frequencyOf     = frequencyOf;
-    arrays->frequency       = frequency;
-    arrays->distinct        = distinct;
-    arrays->countOfDistinct = countOfDistinct;
+    arrays->max             = arraysMax;
+    arrays->min             = arraysMin;
+    arrays->sum             = arraysSum;
+    arrays->average         = arraysAverage;
+    arrays->frequencyOf     = arraysFrequencyOf;
+    arrays->frequency       = arraysFrequency;
+    arrays->distinct        = arraysDistinct;
+    arrays->countOfDistinct = arraysCountOfDistinct;
 }

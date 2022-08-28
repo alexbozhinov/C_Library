@@ -1,142 +1,241 @@
+//------------------------------------------------------
+// NAME: Aleks Bozhinov
+// PROBLEM: Arrays implementation
+// FILE NAME: ArraysDataStatistics.c
+// FILE PURPOSE:
+// The struct Arrays methods implementations for processing
+// the data contained in the array.
+//------------------------------------------------------
+
 #include <stdio.h>
-#include "DataStatistics.h"
+#include "../headers/ArraysDataStatistics.h"
 
-int max(const int array[], const int length)
+//------------------------------------------------------
+// FUNCTION: arraysMax
+// Function which returns the biggest element of the array.
+// PARAMETERS:
+// array     -> the array
+// arraySize -> the size of the array
+//------------------------------------------------------
+
+int arraysMax(const int* array, const int arraySize)
 {
-    int max = array[0];
+    int maxElement = array[0];
+    int arraysIdx  = 0;
 
-    for (int i = 0; i < length; i++)
+    for (arraysIdx = 0; arraysIdx < arraySize; arraysIdx++)
     {
-        if (array[i] > max)
+        if (array[arraysIdx] > maxElement)
         {
-            max = array[i];
+            maxElement = array[arraysIdx];
         }
     }
 
-    return max;
+    return maxElement;
 }
 
-int min(const int array[], const int length)
-{
-    int min = array[0];
+//------------------------------------------------------
+// FUNCTION: arraysMin
+// Function which returns the smallest element of the array.
+// PARAMETERS:
+// array     -> the array
+// arraySize -> the size of the array
+//------------------------------------------------------
 
-    for (int i = 0; i < length; i++)
+int arraysMin(const int* array, const int arraySize)
+{
+    int minElement = array[0];
+    int arrayIdx   = 0;
+
+    for (arrayIdx = 0; arrayIdx < arraySize; arrayIdx++)
     {
-        if (array[i] < min)
+        if (array[arrayIdx] < minElement)
         {
-            min = array[i];
+            minElement = array[arrayIdx];
         }
     }
 
-    return min;
+    return minElement;
 }
 
-int sum(const int array[], const int length)
-{
-    int sum = 0;
+//------------------------------------------------------
+// FUNCTION: arraysSum
+// Function which returns the sum of all elements of the array.
+// PARAMETERS:
+// array     -> the array
+// arraySize -> the size of the array
+//------------------------------------------------------
 
-    for (int i = 0; i < length; i++)
+int arraysSum(const int* array, const int arraySize)
+{
+    int arraySum = 0;
+    int arrayIdx = 0;
+
+    for (arrayIdx = 0; arrayIdx < arraySize; arrayIdx++)
     {
-        sum += array[i];
+        arraySum += array[arrayIdx];
     }
 
-    return sum;
+    return arraySum;
 }
 
-double average(const int array[], const int length)
+//------------------------------------------------------
+// FUNCTION: arraysAverage
+// Function which returns the average value of all elements
+// of the array.
+// PARAMETERS:
+// array     -> the array
+// arraySize -> the size of the array
+//------------------------------------------------------
+
+double arraysAverage(const int* array, const int arraySize)
 {
-    return sum(array, length) / length;
+    return sum(array, arraySize) / (arraySize * 1.0);
 }
 
-int frequencyOf(const int array[], const int length, const int value)
-{
-    int frequency = 0;
+//------------------------------------------------------
+// FUNCTION: arraysFrequencyOf
+// Function which returns the frequency of occurance of
+// the value inside the array.
+// PARAMETERS:
+// array     -> the array
+// arraySize -> the size of the array
+// value     -> the value whose frequency of occurrence
+// is searched 
+//------------------------------------------------------
 
-    for (int i = 0; i < length; i++)
+int arraysFrequencyOf(const int* array, const int arraySize, const int value)
+{
+    int valueFrequency = 0;
+    int arrayIdx       = 0;
+
+    for (arrayIdx = 0; arrayIdx < arraySize; arrayIdx++)
     {
-        if (array[i] == value)
+        if (array[arrayIdx] == value)
         {
-            frequency++;
+            valueFrequency++;
         }
     }
 
-    return frequency;
+    return valueFrequency;
 }
 
-void frequency(const int array[], const int length)
-{
-    int frequency[length];
+//------------------------------------------------------
+// FUNCTION: arraysFrequency
+// Function which returns the frequency of occurance of
+// each element of the array.
+// PARAMETERS:
+// array     -> the array
+// arraySize -> the size of the array
+//------------------------------------------------------
 
-    for (int i = 0; i < length; i++)
+void arraysFrequency(const int* array, const int arraySize)
+{
+    int elementsFrequency[arraySize];
+    int arrayIdx     = 0;
+    int arrayRestIdx = 0;
+
+    for (arrayIdx = 0; arrayIdx < arraySize; arrayIdx++)
     {
         int count = 1;
-        for (int j = i + 1; j < length; j++)
+
+        for (arrayRestIdx = arrayIdx + 1; arrayRestIdx < arraySize; arrayRestIdx++)
         {
-            if (array[i] == array[j])
+            if (array[arrayIdx] == array[arrayRestIdx])
             {
                 count++;
-                frequency[j] = 0;
+                elementsFrequency[arrayRestIdx] = 0;
             }
         }
-        if (frequency[i] != 0)
+
+        if (elementsFrequency[arrayIdx] != 0)
         {
-            frequency[i] = count;
+            elementsFrequency[arrayIdx] = count;
         }
     }
+
     printf("\nThe Frequency of the elements in this Array is: \n");
-    for (int i = 0; i < length; i++)
+    
+    for (arrayIdx = 0; arrayIdx < arraySize; arrayIdx++)
     {
-        if (frequency[i] != 0)
+        if (elementsFrequency[arrayIdx] != 0)
         {
-            printf("%d Occurs %d Times \n", array[i], frequency[i]);
+            printf("%d occurs %d times \n", array[arrayIdx], elementsFrequency[arrayIdx]);
         }
     }
 }
 
-int distinct(int array[], const int length)
+//------------------------------------------------------
+// FUNCTION: arraysDistinct
+// Function which returns the number of distinct elements
+// of the array and removes the elements of the array which
+// occur more than once.
+// PARAMETERS:
+// array     -> the array
+// arraySize -> the size of the array
+//------------------------------------------------------
+
+int arraysDistinct(int* array, const int arraySize)
 {
-    if (length == 0 || length == 1)
-        return length;
+    int tempArray[arraySize];
+    int newArraySize = 0;
+    int arrayIdx     = 0;
 
-    int temp[length];
-
-    int newLength = 0;
-    for (int i = 0; i < length - 1; i++)
+    if (0 == arraySize || 1 == arraySize)
     {
-        if (array[i] != array[i + 1])
+        newArraySize = arraySize;
+    }
+    else
+    {
+        for (arrayIdx = 0; arrayIdx < arraySize - 1; arrayIdx++)
         {
-            temp[newLength++] = array[i];
+            if (array[arrayIdx] != array[arrayIdx + 1])
+            {
+                tempArray[newArraySize++] = array[arrayIdx];
+            }
+        }
+
+        tempArray[newArraySize++] = array[arraySize - 1];
+
+        for (arrayIdx = 0; arrayIdx < arraySize; arrayIdx++)
+        {
+            array[arrayIdx] = tempArray[arrayIdx];
         }
     }
-    temp[newLength++] = array[length - 1];
 
-    for (int i = 0; i < newLength; i++)
-    {
-        array[i] = temp[i];
-    }
-
-    return newLength;
+    return newArraySize;
 }
 
-int countOfDistinct(const int array[], const int length)
-{
-    int count = 1;
-    int j = 0;
+//------------------------------------------------------
+// FUNCTION: arraysCountOfDistinct
+// Function which returns the number of distinct elements
+// of the array.
+// PARAMETERS:
+// array     -> the array
+// arraySize -> the size of the array
+//------------------------------------------------------
 
-    for (int i = 1; i < length; i++)
+int arraysCountOfDistinct(const int* array, const int arraySize)
+{
+    int countOfDistinct = 1;
+    int arrayIdx        = 0;
+    int arrayPrevIdx    = 0;
+
+    for (arrayIdx = 1; arrayIdx < arraySize; arrayIdx++)
     {
-        for (j = 0; j < i; j++)
+        for (arrayPrevIdx = 0; arrayPrevIdx < arrayIdx; arrayPrevIdx++)
         {
-            if (array[i] == array[j])
+            if (array[arrayIdx] == array[arrayPrevIdx])
             {
                 break;
             }
         }
-        if (i == j)
+
+        if (arrayIdx == arrayPrevIdx)
         {
-            count++;
+            countOfDistinct++;
         }
     }
 
-    return count;
+    return countOfDistinct;
 }
