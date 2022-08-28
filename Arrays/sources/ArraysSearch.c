@@ -1,71 +1,119 @@
-#include "Search.h"
+//------------------------------------------------------
+// NAME: Aleks Bozhinov
+// PROBLEM: Arrays implementation
+// FILE NAME: ArraysSerch.c
+// FILE PURPOSE:
+// The struct Arrays methods implementations for searching 
+// algorithms in arrays.
+//------------------------------------------------------
 
-int linearSearch(const int array[], const int length, const int searchedNumber)
+#include "../headers/ArraysSearch.h"
+
+//------------------------------------------------------
+// FUNCTION: linearSearch
+// Function which returns the index of the searched element
+// if it exists using linear searching algorithm.
+// PARAMETERS:
+// array          -> the array
+// arraySize      -> the size of the array
+// searchedNumber -> the searched number
+//------------------------------------------------------
+
+int linearSearch (const int* array, const int arraySize, const int searchedNumber)
 {
-    for (int i = 0; i < length; i++)
+    int arrayIdx          = 0;
+    int searchedNumberIdx = -1;
+
+    for (arrayIdx = 0; arrayIdx < arraySize; arrayIdx++)
     {
-        if (array[i] == searchedNumber)
+        if (array[arrayIdx] == searchedNumber)
         {
-            return i;
+            searchedNumberIdx = arrayIdx;
         }
     }
 
-    return -1;
+    return searchedNumberIdx;
 }
 
-int binarySearch(const int array[], const int left, const int right, const int searchedNumber)
+//------------------------------------------------------
+// FUNCTION: binarySearch
+// Function which returns the index of the searched element
+// if it exists using binary searching algorithm.
+// PARAMETERS:
+// array          -> the array
+// leftEdge       -> the left edge of a subarray
+// rightEdge      -> the right edge of a subarray
+// searchedNumber -> the searched number
+//------------------------------------------------------
+
+int binarySearch (const int* array, const int leftEdge, const int rightEdge, const int searchedNumber)
 {
-    if (right >= left)
+    int searchedNumberIdx = -1;
+
+    if (rightEdge >= leftEdge)
     {
-        int middle = left + (right - left) / 2; // = left + right/2 - left/2 = left/2 + right/2 = (left + right) / 2
+        int middleIdx = leftEdge + (rightEdge - leftEdge) / 2; // = left + right/2 - left/2 = left/2 + right/2 = (left + right) / 2
 
-        if (array[middle] == searchedNumber)
+        if (array[middleIdx] == searchedNumber)
         {
-            return middle;
+            searchedNumberIdx = middleIdx;
         }
 
-        if (array[middle] > searchedNumber)
+        if (array[middleIdx] > searchedNumber)
         {
-            return binarySearch(array, left, middle - 1, searchedNumber);
+            return binarySearch(array, leftEdge, middleIdx - 1, searchedNumber);
         }
 
-        return binarySearch(array, middle + 1, right, searchedNumber);
+        return binarySearch(array, middleIdx + 1, rightEdge, searchedNumber);
     }
 
-    return -1;
+    return searchedNumberIdx;
 }
 
-int ternarySearch(const int array[], const int left, const int right, const int searchedNumber)
+//------------------------------------------------------
+// FUNCTION: ternarySearch
+// Function which returns the index of the searched element
+// if it exists using ternary searching algorithm.
+// PARAMETERS:
+// array          -> the array
+// leftEdge       -> the left edge of a subarray
+// rightEdge      -> the right edge of a subarray
+// searchedNumber -> the searched number
+//------------------------------------------------------
+
+int ternarySearch(const int* array, const int leftEdge, const int rightEdge, const int searchedNumber)
 {
-    if (right >= left)
+    int searchedNumberIdx = -1;
+
+    if (rightEdge >= leftEdge)
     {
-        int middle1 = left + (right - left) / 3;
-        int middle2 = right - (right - left) / 3;
+        int middleLeftIdx  = leftEdge + (rightEdge - leftEdge) / 3;
+        int middleRightIdx = rightEdge - (rightEdge - leftEdge) / 3;
 
-        if (array[middle1] == searchedNumber)
+        if (array[middleLeftIdx] == searchedNumber)
         {
-            return middle1;
+            searchedNumberIdx = middleLeftIdx;
         }
-        if (array[middle2] == searchedNumber)
+        if (array[middleRightIdx] == searchedNumber)
         {
-            return middle2;
+            searchedNumberIdx = middleRightIdx;
         }
 
-        if (searchedNumber < array[middle1])
+        if (searchedNumber < array[middleLeftIdx])
         {
 
-            return ternarySearch(array, left, middle1 - 1, searchedNumber);
+            return ternarySearch(array, leftEdge, middleLeftIdx - 1, searchedNumber);
         }
-        else if (searchedNumber > array[middle2])
+        else if (searchedNumber > array[middleRightIdx])
         {
 
-            return ternarySearch(array, middle2 + 1, right, searchedNumber);
+            return ternarySearch(array, middleRightIdx + 1, rightEdge, searchedNumber);
         }
         else
         {
-            return ternarySearch(array, middle1 + 1, middle2 - 1, searchedNumber);
+            return ternarySearch(array, middleLeftIdx + 1, middleRightIdx - 1, searchedNumber);
         }
     }
 
-    return -1;
+    return searchedNumberIdx;
 }
