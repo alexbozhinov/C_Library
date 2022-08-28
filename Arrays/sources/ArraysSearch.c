@@ -10,7 +10,7 @@
 #include "../headers/ArraysSearch.h"
 
 //------------------------------------------------------
-// FUNCTION: linearSearch
+// FUNCTION: arraysLinearSearch
 // Function which returns the index of the searched element
 // if it exists using linear searching algorithm.
 // PARAMETERS:
@@ -19,7 +19,7 @@
 // searchedNumber -> the searched number
 //------------------------------------------------------
 
-int linearSearch (const int* array, const int arraySize, const int searchedNumber)
+int arraysLinearSearch (const int* array, const int arraySize, const int searchedNumber)
 {
     int arrayIdx          = 0;
     int searchedNumberIdx = -1;
@@ -36,7 +36,7 @@ int linearSearch (const int* array, const int arraySize, const int searchedNumbe
 }
 
 //------------------------------------------------------
-// FUNCTION: binarySearch
+// FUNCTION: arraysBinarySearch
 // Function which returns the index of the searched element
 // if it exists using binary searching algorithm.
 // PARAMETERS:
@@ -46,7 +46,7 @@ int linearSearch (const int* array, const int arraySize, const int searchedNumbe
 // searchedNumber -> the searched number
 //------------------------------------------------------
 
-int binarySearch (const int* array, const int leftEdge, const int rightEdge, const int searchedNumber)
+int arraysBinarySearch (const int* array, const int leftEdge, const int rightEdge, const int searchedNumber)
 {
     int searchedNumberIdx = -1;
 
@@ -71,7 +71,7 @@ int binarySearch (const int* array, const int leftEdge, const int rightEdge, con
 }
 
 //------------------------------------------------------
-// FUNCTION: ternarySearch
+// FUNCTION: arraysTernarySearch
 // Function which returns the index of the searched element
 // if it exists using ternary searching algorithm.
 // PARAMETERS:
@@ -81,7 +81,7 @@ int binarySearch (const int* array, const int leftEdge, const int rightEdge, con
 // searchedNumber -> the searched number
 //------------------------------------------------------
 
-int ternarySearch(const int* array, const int leftEdge, const int rightEdge, const int searchedNumber)
+int arraysTernarySearch(const int* array, const int leftEdge, const int rightEdge, const int searchedNumber)
 {
     int searchedNumberIdx = -1;
 

@@ -44,9 +44,9 @@ static void setArraysMethods(Arrays *arrays)
     arrays->insertionSort   = insertionSort;
     arrays->mergeSort       = mergeSort;
     arrays->quickSort       = quickSort;
-    arrays->linearSearch    = linearSearch;
-    arrays->binarySearch    = binarySearch;
-    arrays->ternarySearch   = ternarySearch;
+    arrays->linearSearch    = arraysLinearSearch;
+    arrays->binarySearch    = arraysBinarySearch;
+    arrays->ternarySearch   = arraysTernarySearch;
     arrays->copyOf          = arraysCopyOf;
     arrays->copyOfRange     = arraysCopyOfRange;
     arrays->equals          = arraysEquals;
