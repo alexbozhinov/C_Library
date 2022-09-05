@@ -1,32 +1,60 @@
+//------------------------------------------------------
+// NAME: Aleks Bozhinov
+// PROBLEM: Arrays implementation
+// FILE NAME: ArraysSort.c
+// FILE PURPOSE:
+// The struct Arrays methods implementations for sorting 
+// algorithms in arrays.
+//------------------------------------------------------
+
 #include <stdio.h>
-#include "SortArray.h"
+#include "../headers/ArraysSort.h"
 
-static void swap(int *left, int *right);
-static void bubbleSortAscending(int array[], const int length);
-static void bubbleSortDescending(int array[], const int length);
-static void selectionSortAscending(int array[], const int length);
-static void selectionSortDescending(int array[], const int length);
-static void insertionSortAscending(int array[], const int length);
-static void insertionSortDescending(int array[], const int length);
-static void merge(int array[], const int left, const int middle, const int right);
-static int partition(int array[], const int low, const int high);
+static void arraysSwap                   (int* left, int* right);
+static void arraysBubbleSortAscending    (int* array, const int arraySize);
+static void arraysBubbleSortDescending   (int* array, const int arraySize);
+static void arraysSelectionSortAscending (int* array, const int arraySize);
+static void arraysSelectionSortDescending(int* array, const int arraySize);
+static void arraysInsertionSortAscending (int* array, const int arraySize);
+static void arraysInsertionSortDescending(int* array, const int arraySize);
+static void arraysMerge                  (int* array, const int left, const int middle, const int right);
+static int  arraysPartition              (int* array, const int low, const int high);
 
-static void swap(int *left, int *right)
+//------------------------------------------------------
+// FUNCTION: arraySwap
+// Function where the position of 2 elements are swapped.
+// PARAMETERS:
+// left  -> the left element
+// right -> the right element
+//------------------------------------------------------
+
+static void arraysSwap(int* left, int* right)
 {
     int temp = *left;
-    *left = *right;
-    *right = temp;
+    *left    = *right;
+    *right   = temp;
 }
 
-void bubbleSort(int *array, const int length, enum SortingDirection direction)
+//------------------------------------------------------
+// FUNCTION: arrayBubbleSort
+// Function where depending on parameter's direction value,
+// function for ascending or descending order of bubble
+// sort algorithm is being called.
+// PARAMETERS:
+// array     -> the array to be sorted
+// arraySize -> the size of the array
+// direction -> ASCENDING or DESCENDING
+//------------------------------------------------------
+
+void arraysBubbleSort(int* array, const int arraySize, SortingDirection direction)
 {
     switch (direction)
     {
-    case 1:
-        bubbleSortAscending(array, length);
+    case ASCENDING:
+        arraysBubbleSortAscending(array, arraySize);
         break;
-    case -1:
-        bubbleSortDescending(array, length);
+    case DESCENDING:
+        arraysBubbleSortDescending(array, arraySize);
         break;
     default:
         printf("Missing or incorrect direction parameter!\n");
@@ -34,43 +62,78 @@ void bubbleSort(int *array, const int length, enum SortingDirection direction)
     }
 }
 
-static void bubbleSortAscending(int array[], const int length)
+//------------------------------------------------------
+// FUNCTION: arrayBubbleSortAscending
+// Function where bubble sort algorithm in ascending
+// order is implemented.
+// PARAMETERS:
+// array     -> the array to be sorted
+// arraySize -> the size of the array
+//------------------------------------------------------
+
+static void arraysBubbleSortAscending(int* array, const int arraySize)
 {
-    for (int i = 0; i < length - 1; i++)
+    int arrayFirstCircuitIdx  = 0;
+    int arraySecondCircuitIdx = 0;
+
+    for (arrayFirstCircuitIdx = 0; arrayFirstCircuitIdx < arraySize - 1; arrayFirstCircuitIdx++)
     {
-        for (int j = 0; j < length - i - 1; j++)
+        for (arraySecondCircuitIdx = 0; arraySecondCircuitIdx < arraySize - arrayFirstCircuitIdx - 1; arraySecondCircuitIdx++)
         {
-            if (array[j] > array[j + 1])
+            if (array[arraySecondCircuitIdx] > array[arraySecondCircuitIdx + 1])
             {
-                swap(&array[j], &array[j + 1]);
+                swap(&array[arraySecondCircuitIdx], &array[arraySecondCircuitIdx + 1]);
             }
         }
     }
 }
 
-static void bubbleSortDescending(int array[], const int length)
+//------------------------------------------------------
+// FUNCTION: arrayBubbleSortDescending
+// Function where bubble sort algorithm in descending
+// order is implemented.
+// PARAMETERS:
+// array     -> the array to be sorted
+// arraySize -> the size of the array
+//------------------------------------------------------
+
+static void arraysBubbleSortDescending(int* array, const int arraySize)
 {
-    for (int i = 0; i < length - 1; i++)
+    int arrayFirstCircuitIdx  = 0;
+    int arraySecondCircuitIdx = 0;
+
+    for (arrayFirstCircuitIdx = 0; arrayFirstCircuitIdx < arraySize - 1; arrayFirstCircuitIdx++)
     {
-        for (int j = 0; j < length - i - 1; j++)
+        for (arraySecondCircuitIdx = 0; arraySecondCircuitIdx < arraySize - arrayFirstCircuitIdx - 1; arraySecondCircuitIdx++)
         {
-            if (array[j] < array[j + 1])
+            if (array[arraySecondCircuitIdx] < array[arraySecondCircuitIdx + 1])
             {
-                swap(&array[j], &array[j + 1]);
+                swap(&array[arraySecondCircuitIdx], &array[arraySecondCircuitIdx + 1]);
             }
         }
     }
 }
 
-void selectionSort(int *array, const int length, enum SortingDirection direction)
+//------------------------------------------------------
+// FUNCTION: arraySelectionSort
+// Function where depending on parameter's direction value,
+// function for ascending or descending order of selection
+// sort algorithm is being called.
+// PARAMETERS:
+// array     -> the array to be sorted
+// arraySize -> the size of the array
+// direction -> ASCENDING or DESCENDING
+//------------------------------------------------------
+
+void arraysSelectionSort(int* array, const int arraySize, SortingDirection direction)
 {
     switch (direction)
     {
-    case 1:
-        selectionSortAscending(array, length);
+    case ASCENDING:
+        arraysSelectionSortAscending(array, arraySize);
         break;
-    case -1:
-        selectionSortDescending(array, length);
+    case DESCENDING:
+        arraysSelectionSortDescending(array, arraySize);
         break;
     default:
         printf("Missing or incorrect direction parameter!\n");
@@ -78,51 +141,88 @@ void selectionSort(int *array, const int length, enum SortingDirection direction
     }
 }
 
-static void selectionSortAscending(int array[], const int length)
-{
-    int minIdx = 0;
+//------------------------------------------------------
+// FUNCTION: arraySelectionSortAscending
+// Function where selection sort algorithm in ascending
+// order is implemented.
+// PARAMETERS:
+// array     -> the array to be sorted
+// arraySize -> the size of the array
+//------------------------------------------------------
 
-    for (int i = 0; i < length - 1; i++)
+static void arraysSelectionSortAscending(int* array, const int arraySize)
+{
+    int minElementIdx    = 0;
+    int arrayIdx         = 0;
+    int arrayUnsortedIdx = 0;
+
+    for (arrayIdx = 0; arrayIdx < arraySize - 1; arrayIdx++)
     {
-        minIdx = i;
-        for (int j = i + 1; j < length; j++)
+        minElementIdx = arrayIdx;
+
+        for (arrayUnsortedIdx = arrayIdx + 1; arrayUnsortedIdx < arraySize; arrayUnsortedIdx++)
         {
-            if (array[j] < array[minIdx])
+            if (array[arrayUnsortedIdx] < array[minElementIdx])
             {
-                minIdx = j;
+                minElementIdx = arrayUnsortedIdx;
             }
         }
-        swap(&array[minIdx], &array[i]);
+
+        swap(&array[minElementIdx], &array[arrayIdx]);
     }
 }
 
-static void selectionSortDescending(int array[], const int length)
-{
-    int maxIdx = 0;
+//------------------------------------------------------
+// FUNCTION: arraySelectionSortDescending
+// Function where selection sort algorithm in descending
+// order is implemented.
+// PARAMETERS:
+// array     -> the array to be sorted
+// arraySize -> the size of the array
+//------------------------------------------------------
 
-    for (int i = 0; i < length - 1; i++)
+static void arraysSelectionSortDescending(int* array, const int arraySize)
+{
+    int maxElementIdx    = 0;
+    int arrayIdx         = 0;
+    int arrayUnsortedIdx = 0;
+
+    for (arrayIdx = 0; arrayIdx < arraySize - 1; arrayIdx++)
     {
-        maxIdx = i;
-        for (int j = i + 1; j < length; j++)
+        maxElementIdx = arrayIdx;
+
+        for (arrayUnsortedIdx = arrayIdx + 1; arrayUnsortedIdx < arraySize; arrayUnsortedIdx++)
         {
-            if (array[j] > array[maxIdx])
+            if (array[arrayUnsortedIdx] > array[maxElementIdx])
             {
-                maxIdx = j;
+                maxElementIdx = arrayUnsortedIdx;
             }
         }
-        swap(&array[maxIdx], &array[i]);
+
+        swap(&array[maxElementIdx], &array[arrayIdx]);
     }
 }
 
-void insertionSort(int *array, const int length, enum SortingDirection direction)
+//------------------------------------------------------
+// FUNCTION: arrayInsertionSort
+// Function where depending on parameter's direction value,
+// function for ascending or descending order of insertion
+// sort algorithm is being called.
+// PARAMETERS:
+// array     -> the array to be sorted
+// arraySize -> the size of the array
+// direction -> ASCENDING or DESCENDING
+//------------------------------------------------------
+
+void arraysInsertionSort(int* array, const int arraySize, SortingDirection direction)
 {
     switch (direction)
     {
-    case 1:
-        insertionSortAscending(array, length);
+    case ASCENDING:
+        insertionSortAscending(array, arraySize);
         break;
-    case -1:
-        insertionSortDescending(array, length);
+    case DESCENDING:
+        insertionSortDescending(array, arraySize);
         break;
     default:
         printf("Missing or incorrect direction parameter!\n");
@@ -130,38 +230,59 @@ void insertionSort(int *array, const int length, enum SortingDirection direction
     }
 }
 
-static void insertionSortAscending(int array[], const int length)
+//------------------------------------------------------
+// FUNCTION: arrayInsertionSortAscending
+// Function where insertion sort algorithm in ascending
+// order is implemented.
+// PARAMETERS:
+// array     -> the array to be sorted
+// arraySize -> the size of the array
+//------------------------------------------------------
+
+static void arraysInsertionSortAscending(int* array, const int arraySize)
 {
-    int j = 0;
+    int arrayIdx            = 0;
+    int currentUnorderedIdx = 0;
 
-    for (int i = 1; i < length; i++)
+    for (arrayIdx = 1; arrayIdx < arraySize; arrayIdx++)
     {
-        j = i;
-        while (j > 0 && array[j] < array[j - 1])
-        {
-            int temp = array[j];
-            array[j] = array[j - 1];
-            array[j - 1] = temp;
+        currentUnorderedIdx = arrayIdx;
 
-            j--;
+        while (currentUnorderedIdx > 0 && array[currentUnorderedIdx] < array[currentUnorderedIdx - 1])
+        {
+            int temp                       = array[currentUnorderedIdx];
+            array[currentUnorderedIdx]     = array[currentUnorderedIdx - 1];
+            array[currentUnorderedIdx - 1] = temp;
+
+            currentUnorderedIdx--;
         }
     }
 }
 
-static void insertionSortDescending(int array[], const int length)
+//------------------------------------------------------
+// FUNCTION: arrayInsertionSortDescending
+// Function where insertion sort algorithm in descending
+// order is implemented.
+// PARAMETERS:
+// array     -> the array to be sorted
+// arraySize -> the size of the array
+//------------------------------------------------------
+
+static void arraysInsertionSortDescending(int* array, const int arraySize)
 {
-    int j = 0;
+    int arrayIdx            = 0;
+    int currentUnorderedIdx = 0;
 
-    for (int i = 1; i < length; i++)
+    for (arrayIdx = 1; arrayIdx < arraySize; arrayIdx++)
     {
-        j = i;
-        while (j > 0 && array[j] > array[j - 1])
+        currentUnorderedIdx = arrayIdx;
+        while (currentUnorderedIdx > 0 && array[currentUnorderedIdx] > array[currentUnorderedIdx - 1])
         {
-            int temp = array[j];
-            array[j] = array[j - 1];
-            array[j - 1] = temp;
+            int temp                       = array[currentUnorderedIdx];
+            array[currentUnorderedIdx]     = array[currentUnorderedIdx - 1];
+            array[currentUnorderedIdx - 1] = temp;
 
-            j--;
+            currentUnorderedIdx--;
         }
     }
 }

@@ -18,7 +18,7 @@
 // arraySize -> the size of the array
 //------------------------------------------------------
 
-void arraysInputArray(int *array, const int arraySize)
+void arraysInputArray(int* array, const int arraySize)
 {
     int arrayIdx = 0;
 
@@ -38,7 +38,7 @@ void arraysInputArray(int *array, const int arraySize)
 // arraySize -> the size of the array
 //------------------------------------------------------
 
-void arraysToString(const int *array, const int arraySize)
+void arraysToString(const int* array, const int arraySize)
 {
     if(arraySize > 0)
     {

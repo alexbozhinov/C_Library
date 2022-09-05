@@ -9,7 +9,7 @@
 
 #include "Arrays.h"
 
-static void setArraysMethods(Arrays *arrays);
+static void setArraysMethods(Arrays* arrays);
 
 //------------------------------------------------------
 // FUNCTION: ArraysConstructor
@@ -35,15 +35,15 @@ Arrays ArraysConstructor()
 // is being initialized.
 //------------------------------------------------------
 
-static void setArraysMethods(Arrays *arrays)
+static void setArraysMethods(Arrays* arrays)
 {
     arrays->input           = arraysInputArray;
     arrays->toString        = arraysToString;
-    arrays->bubbleSort      = bubbleSort;
-    arrays->selectionSort   = selectionSort;
-    arrays->insertionSort   = insertionSort;
-    arrays->mergeSort       = mergeSort;
-    arrays->quickSort       = quickSort;
+    arrays->bubbleSort      = arraysBubbleSort;
+    arrays->selectionSort   = arraysSelectionSort;
+    arrays->insertionSort   = arraysInsertionSort;
+    arrays->mergeSort       = arraysMergeSort;
+    arrays->quickSort       = arraysQuickSort;
     arrays->linearSearch    = arraysLinearSearch;
     arrays->binarySearch    = arraysBinarySearch;
     arrays->ternarySearch   = arraysTernarySearch;
